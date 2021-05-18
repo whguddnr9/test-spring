@@ -1,17 +1,17 @@
-package com.hjo.example.springboot;
+package com.hjo.example.springboot.web;
 
-import com.hjo.example.springboot.web.HelloController;
+import com.hjo.example.springboot.web.web.HelloController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)    //Junit에 내장된 실행자 외에 다른 실행자 실행 (SpringRunner) 스프링부트 테스트와 JUnit사이의 연결자 역할
@@ -28,5 +28,19 @@ public class HelloControllerTest {
                 .andExpect(status().isOk())   //HTTP Header의 Status(200,404,500)을 검증하는데 여기선 OK인 200번인지 확인한다.
                 .andExpect(content().string(hello));    //응답 본문의 내용을 검증한다. 컨트롤러에서는 "hello"를 리턴하도록 했는데 맞는지 확인한다.
         //MOCKMvc를 통해 /hello주소로 GET요청을 함
+    }
+
+    @Test
+    public void helloDto가_리턴된다() throws Exception {
+        String name = "hello";
+        int amount = 1000;
+
+        mvc.perform(
+                get("/hello/dto")
+                .param("name", name)
+                .param("amount", String.valueOf(amount)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is(name)))
+                .andExpect(jsonPath("$.amount", is(amount)));
     }
 }

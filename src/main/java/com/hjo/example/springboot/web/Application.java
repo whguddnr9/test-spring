@@ -1,4 +1,4 @@
-package com.hjo.example.springboot;/*
+package com.hjo.example.springboot.web;/*
 package com.hjo.springboot;
 
 public class Application {
