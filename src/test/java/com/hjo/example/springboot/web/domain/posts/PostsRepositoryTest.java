@@ -1,7 +1,5 @@
-package com.hjo.example.springboot.domain.posts;
+package com.hjo.example.springboot.web.domain.posts;
 
-import com.hjo.example.springboot.web.domain.posts.Posts;
-import com.hjo.example.springboot.web.domain.posts.PostsRepository;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
